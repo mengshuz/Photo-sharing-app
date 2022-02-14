@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>Albums</title>
+</head>
+  
+<body>
+{% if message %}
+  <h3>{{message}}!</h3>
+{% endif %}
+
+
+
+
+<body>
+    <div class="title">
+        <h2>Create an Album</h2>
+    </div>
+        <form method="POST" action="/albums">
+            <label for="title">Album Name:</label>
+            <input type="text" name="album_name" required='true' />
+            <input type="submit" value="Create" />
+        </form>
+
+
+<br>
+{% if albums %}
+  <h2>Album List</h2>
+  <ol>
+      {% for album in albums %}
+      <li>{{album[0]}}</li>
+        <form method="post" action="/myphotos">
+          <input type="text" value={{album[0]}} name="photos_title" hidden="True" />
+          <input type="submit" value="Photos" />
+        </form>
+        <form method="post" action="/albums">
+              <input type="text" value={{album[0]}} name="delete_name" hidden="True">
+              <input type="submit" value="Delete" />
+        </form>
+      {% endfor %}
+      </ol>
+{% endif %}
+
+
+
+<ul>
+<li><a href='/upload'>Upload a photo</a></li>
+<li><a href='/myphotos'>View My Photos</a></li>
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+
+</body>
+</html>

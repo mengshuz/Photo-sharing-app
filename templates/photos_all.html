@@ -1,0 +1,139 @@
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+
+{% if popularTags %}
+	<h3>The Most Popular Tags:</h3>
+	{% for tag in popularTags %}
+      <form method="post" action="/allphotos">
+        <li><label for="tags">Tag: {{tag[0]}}</label>
+        <input type="text" value={{tag[0]}} hidden="True" name=popularTag />
+        <input type="submit" value="View Photos" /></li>
+      </form>
+	{% endfor %}
+{% endif %}
+
+<div>
+	<form method="post" action="/allphotos">
+  		<h3>Search for Photos</h3>
+  		<label for="tags">Tag:</label>
+  		<input type="search" name="tags">
+  	  <input type="submit" value="Search" />
+	</form>
+</div>
+
+{% if allphotos %}
+  View All Photos:
+  <ul>
+	{% for photo in allphotos %}
+        <form method="post" action="/allphotos">
+            <input type="text" value={{photo[4]}} name="like_photo_id" hidden="True">
+            <input type="submit" value="Like" />
+            Name: {{photo[2]}} {{photo[3]}}, Caption: {{photo[0]}},
+            Tag:
+            {% if photo[5] %}
+                {% for tag in photo[5] %}
+                    {{tag[0]}};
+                {% endfor %}
+            {% endif %}
+        <form/>
+        {% if photo[7][0] %}
+            <br>{{photo[7][0][1]}} people like this photo:
+        {% endif %}
+        {% for like in photo[7] %}
+            [{{like[0]}}]
+        {% endfor %}
+        <br><img src='data:image/png;base64, {{base64.b64encode(photo[1]).decode("ascii")}}' height="60%" width="60%"/>
+        {% for comment in photo[6] %}
+            <br>{{comment[2]}} {{comment[3]}}: {{comment[0]}}
+        {% endfor %}
+
+        <form method="post" action="/allphotos">
+        		<br>Comment:
+        		<input type="text" name="comment">
+            <input type="text" value={{photo[4]}} name="photo_id" hidden="True">
+        	  <input type="submit" value="Submit" />
+      	</form>
+	{% endfor %}
+  <ul>
+{% endif %}
+
+{% if searchedPhotos %}
+<ul>
+	{% for photo in searchedPhotos %}
+        <form method="post" action="/allphotos">
+            <input type="text" value={{photo[4]}} name="like_photo_id" hidden="True">
+            <input type="submit" value="Like" />
+            Name: {{photo[2]}} {{photo[3]}}, Caption: {{photo[0]}},
+            Tag:
+            {% if photo[5] %}
+                {% for tag in photo[5] %}
+                    {{tag[0]}};
+                {% endfor %}
+            {% endif %}
+        <form/>
+        {% if photo[7][0] %}
+            <br>{{photo[7][0][1]}} people like this photo:
+        {% endif %}
+        {% for like in photo[7] %}
+            [{{like[0]}}]
+        {% endfor %}
+
+        <br><img src='data:image/png;base64,{{base64.b64encode(photo[1]).decode("ascii")}}' height="40%" width="40%"/>
+
+        {% for comment in photo[6] %}
+            <br>{{comment[2]}} {{comment[3]}}: {{comment[0]}}
+        {% endfor %}
+
+      <form method="post" action="/allphotos">
+          <br>Comment:
+          <input type="text" name="comment">
+          <input type="text" value={{photo[4]}} name="photo_id" hidden="True">
+          <input type="submit" value="Submit" />
+      </form>
+	{% endfor %}
+</ul>
+{% endif %}
+
+{% if PopularTagPhotos %}
+    <ul>
+	{% for photo in PopularTagPhotos %}
+        <form method="post" action="/allphotos">
+            <input type="text" value={{photo[4]}} name="like_photo_id" hidden="True">
+            <input type="submit" value="Like" />
+            Name: {{photo[2]}} {{photo[3]}}, Caption: {{photo[0]}},
+            Tag:
+            {% if photo[5] %}
+                {% for tag in photo[5] %}
+                    {{tag[0]}};
+                {% endfor %}
+            {% endif %}
+        <form/>
+        {% if photo[7][0] %}
+            <br>{{photo[7][0][1]}} people like this photo:
+        {% endif %}
+        {% for like in photo[7] %}
+            [{{like[0]}}]
+        {% endfor %}
+
+        <br><img src='data:image/png;base64, {{base64.b64encode(photo[1]).decode("ascii")}}' height="60%" width="60%"/>
+
+        {% for comment in photo[6] %}
+            <br>{{comment[2]}} {{comment[3]}}: {{comment[0]}}
+        {% endfor %}
+
+      <form method="post" action="/allphotos">
+          <br>Comment:
+          <input type="text" name="comment">
+          <input type="text" value={{photo[4]}} name="photo_id" hidden="True">
+          <input type="submit" value="Submit" />
+      </form>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<ul>
+<li><a href='/'>Home</a></li>
+<li><a href='/allphotos'>View All Photos</a></li>
+<li><a href='/myphotos'>View My Photos</a></li>
+</ul>

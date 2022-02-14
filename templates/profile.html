@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <title>Profile</title>
+  </head>
+  
+  {% if message %}
+  <h3>{{message}}!</h3>
+{% endif %}
+
+  
+
+  
+{% if UserProf %}
+  <h1>Hello {{ UserProf[0][0] }}!</h1>
+ 
+  <br>Name: {{ UserProf[0][1] }} {{ UserProf[0][2] }}
+  <br>Email: {{ UserProf[0][0] }}
+  <br>Date of Birth: {{ UserProf[0][3] }}
+  <br>Gender: {{ UserProf[0][5] }}
+  <br>Hometown: {{ UserProf[0][4] }}
+{% endif %}
+
+{% if message is none %}
+  <p>You should <a href='/login'>Please login to your account!</a></p>
+{% endif %}
+
+<ul>
+<li><a href='/'>Home</a></li>
+<li><a href='/friends'>Friends List</a></li>
+<li><a href='/upload'>Upload Photos</a> </li>
+<li><a href='/albums'>View Albums</a></li>
+<li><a href='/myphotos'>View My Photos</a></li>
+<li><a href='/allphotos'>View All Photos</a></li>
+<li><a href='/recommendphotos'>You May Also Like</a> </li>
+<li><a href='/recommendation_friends'>Friend Recommendation</a></li>
+<li><a href='/logout'>Logout</a></li>
+</ul>
+
+</html>

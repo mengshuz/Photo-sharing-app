@@ -1,0 +1,52 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+
+<title>Photoshare</title>
+{% if UserProf %}
+  <h1>Hello {{ UserProf[0][0] }}!</h1>
+{% endif %}
+
+{% if photos %}
+<h2>Here are your photos</h2>
+    <ul>
+    {% for photo in photos %}
+        <li>{{photo[2]}}<br>
+        <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}'/></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+
+{% if TopUsers %}
+  <h3>Top 10 Users</h3>
+    {% for user in TopUsers%}
+        <li>[{{user[0]}}] {{user[1]}} {{user[2]}} </li>
+    {% endfor %}
+{% endif %}
+
+{% if message is none %}
+  <p>You should <a href='/login'>login!</a></p>
+{% else %}
+  <p> Go to <a href='/profile'>profile?</a></p>
+{% endif %}
+
+<ul>
+<li><a href='/'>Home</a></li>
+<li><a href='/register'> Sign Up</a>
+<li><a href='/login'>Login</a></li>
+<li><a href='/friends'>My Friends</a></li>
+<li><a href='/upload'>Upload Photos</a> </li>
+<li><a href='/albums'>View Albums</a></li>
+<li><a href='/myphotos'>View My Photos</a></li>
+<li><a href='/allphotos'>View All Photos</a></li>
+<li><a href='/allphotos'>Search Photos</a></li>
+<li><a href='/comments'>Search Comments</a></li>
+<li><a href='/recommendphotos'>You May Also Like</a> </li>
+<li><a href='/logout'>Logout</a></li>
+
+</ul>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Create an account!</title>
+</head>
+  
+{%if not supress%}
+<h1> Email already in use! Use another one or <a href="/login">login</a></h1>
+{% endif %}
+    <body>
+        <div class="title">
+            <h1>Enter your information below</h1>
+        </div>
+        <div id="content">
+            <form method="post" action="{{ url_for('register_user') }}">
+                <div class="form-group" id="#signup-form">
+                  <p>* is required to fill in</p>            
+    			<input type="text" class="form-control" placeholder="*First Name" name="firstname" required>
+              </div>
+              
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="*Last Name" name="lastname" required>
+						</div>
+
+						<div class="form-group">
+							<input type="email" class="form-control" id="exampleInputEmail1" placeholder="*Email" name="email" required>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="*date of birth (format:1994-12-12)" name="birthday" required>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Hometown" name="hometown">
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Gender ('female' or 'male')" name="gender">
+						</div>
+
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="*Password" name="password" required>
+						</div>
+
+						<button type="submit" value="Search" class="btn btn-default submit">Sign Up Now!</button>
+					</form>
+         </div>
+    </body>
+  <br> 
+<a href='/'>Home</a>
+
+
+</html>

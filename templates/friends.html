@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <title>Friends</title>
+</head>
+  
+<body>
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+
+
+<h2>Search For Users</h2>
+<form action="/friends" method="POST"> 
+  <input type="text" placeholder="Email" name="email" required='true'>
+  <input type="submit" name="Search"> 
+</form>
+
+{% if recommendation_friends %}
+<h2>Friend Recommendation</h2>
+<ol>
+    {% for friend in recommendations %}
+        <li>Name: {{friend[0]}} {{friend[1]}}
+          <br>email: {{friend[2]}}</li>
+    {% endfor %}
+</ol>
+{% endif %}
+
+
+{% if UserProf %}
+  <h2>Searched Result</h2>
+  <ul>
+      Name: {{UserProf[0][0]}} {{UserProf[0][1]}}
+          <form action="/friends" method="POST"> 
+            <input type="text" value={{UserProf[0][2]}} name="friendemail" hidden="True"/>
+            <input type="submit" value="Add Friend">
+          </form>
+      </ul>
+{% endif %}
+
+{% if friends %}
+<h2>Friends List</h2>
+<ol>
+    {% for friend in friends %}
+        <li>Name: {{friend[0]}} {{friend[1]}}
+          <br>email: {{friend[2]}}</li>
+    {% endfor %}
+</ol>
+{% endif %}
+
+
+
+<br><a href='/'>Home</a>
+<br><a href='/profile'>Profile</a>
+<br><a href='/friends'>Friends List</a></br>
+
+  </body>
+</html>

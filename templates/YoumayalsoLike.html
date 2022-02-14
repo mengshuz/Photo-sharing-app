@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+{% if youmaylike %}
+  <br><h1>Recommended Photos:</h1>
+  <ul>
+	{% for photo in youmaylike %}
+        <div>
+          <br>  Name: {{photo[3]}} {{photo[4]}}, Caption: {{photo[1]}},
+            Tag:
+            {% if photo[5] %}
+                {% for tag in photo[5] %}
+                    {{tag[0]}};
+                {% endfor %}
+            {% endif %}
+
+            {% if photo[7][0] %}
+                <br>{{photo[7][0][1]}} people like this photo:
+            {% endif %}
+            {% for like in photo[7] %}
+                [{{like[0]}}]
+
+            {% endfor %}
+                <br><img src='data:image/png;base64, {{base64.b64encode(photo[2]).decode("ascii")}}' height="60%" width="60%"/>
+            <br><strong>Comments:</strong><br>
+            {% for comment in photo[6] %}
+            {{comment[2]}} {{comment[3]}}: {{comment[0]}}
+        </div>
+        {% endfor %}
+	{% endfor %}
+  <ul>
+{% endif %}
+
+
+<br><a href='/'>Home</a><br>
+<a href='/albums'>View My Albums</a><br>
+<a href='/myphotos'>View My Photos</a><br>
+<a href='/allphotos'>View All Photos</a><br>
+<a href='/upload'>Upload</a><br>
+
+</html>

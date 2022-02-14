@@ -1,0 +1,110 @@
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+
+{% if myTags %}
+<div>
+	<h1>View My Photos</h1>
+  <ul>
+	{% for tag in myTags %}
+    <form method="post" action="/myphotos">
+      <li><label for="tags">Tag: {{tag[0]}}</label>
+      <input type="text" value={{tag[0]}} hidden="True" name=tag />
+      <input type="submit" value="View" /></li>
+    </form>
+	{% endfor %}
+  </ul>
+{% endif %}
+
+{% if recommendation %}
+    Tags:
+    {% for tag in recommendation %}
+        {{tag[0]}};
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if myPhotos %}
+<div>
+  <br><h3>View My Photos:</h3>
+  <ul>
+	{% for photo in myPhotos %}
+      <!-- add tag -->
+      <form action="/myphotos" method="POST">
+          <br>Album: {{photo[3]}}, Caption: {{photo[2]}}
+          <br>Tags:
+              {% if photo[4] %}
+                  {% for tag in photo[4] %}
+                      {{tag[0]}};
+                  {% endfor %}
+              {% endif %}
+          <br><label for="addtag">Add Tag:
+          <input type="text" name=addtags /></label>
+          <input type="text" value={{photo[1]}} hidden="True" name=photo_id />
+          <input type="submit" value="Add" /><br>
+        
+          <img src='data:image/png;base64, {{base64.b64encode(photo[0]).decode("ascii")}}' height="60%" width="60%"/>
+      </form>
+      <!-- delete photo -->
+      <form action="/myphotos" method="POST">
+          <input type="text" value={{photo[1]}} hidden="True" name=delete_photo_id />
+          <input type="submit" value="Delete This Photo" />
+      </form>
+  {% endfor %}
+  <ul>
+</div>
+{% endif %}
+
+
+{% if myPhotosbyTag %}
+  <br>Tag: {{myPhotosbyTag[0][2]}}
+  <ul>
+	{% for photo in myPhotosbyTag %}
+      <!-- delete tag -->
+      <form action="/myphotos" method="POST">
+         <br>Caption: {{photo[0]}}
+          <input type="text" value={{myPhotosbyTag[0][2]}} hidden="True" name=tag_delete />
+          <input type="text" value={{photo[3]}} hidden="True" name=delete_tag_pid />
+          <input type="submit" value="Delete Tag" />
+         
+          <br><img src='data:image/png;base64, {{base64.b64encode(photo[1]).decode("ascii")}}' height="60%" width="60%" />
+          
+      </form>
+  {% endfor %}
+  <ul>
+{% endif %}
+
+{% if AlbumPhotos %}
+    <br>Album Title: {{AlbumPhotos[0][3]}}
+    <ul>
+    {% for photo in AlbumPhotos %}
+    <form action="/myphotos" method="POST">
+        <br>Caption: {{photo[0]}}
+        <br>Tags:
+            {% if photo[4] %}
+                {% for tag in photo[4] %}
+                    {{tag[0]}};
+                {% endfor %}
+            {% endif %}
+        <br><label for="addtag">Add Tag:
+        <input type="text" name=addtags /></label>
+        <input type="text" value={{photo[2]}} hidden="True" name=photo_id />
+        <input type="submit" value="Add" />
+        
+        
+        <br><img src='data:image/png;base64, {{base64.b64encode(photo[1]).decode("ascii")}}' height="60%" width="60%"/>
+    </form>
+    <!-- delete photo -->
+    <form action="/myphotos" method="POST">
+        <input type="text" value={{photo[2]}} hidden="True" name=delete_photo_id />
+        <input type="submit" value="Delete This Photo" />
+    </form>
+    {% endfor %}
+    <ul>
+{% endif %}
+
+
+<a href='/'>Home</a><br>
+<a href='/albums'>View My Albums</a><br>
+<a href='/myphotos'>View My Photos</a><br>
+<a href='/upload'>Upload</a><br>
